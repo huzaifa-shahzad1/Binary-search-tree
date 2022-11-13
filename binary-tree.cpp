@@ -19,7 +19,6 @@ public:
 
 	binaryTree() {
 		root = NULL;
-
 	}
 
 	Node* createNode(int data) {
@@ -175,31 +174,79 @@ public:
 	}
 };
 
+
+void menu() {
+	cout << "1. Insert" << endl;
+	cout << "2. Search" << endl;
+	cout << "3. Maximum" << endl;
+	cout << "4. Minimum" << endl;
+	cout << "5. Delete" << endl;
+	cout << "6. Display" << endl;
+}
+
 int main() {
 	binaryTree tree;
+	int choice = 0;
+	char rep = ' ';
+	do
+	{
+		menu();
+		cout << "Enter the operation: ";
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			cout << "Enter the No. of Values: ";
+			cin >> choice;
+			for (int i = 0; i < choice; i++) {
+				tree.insertion();
+			}
+			break;
+		case 2:
+			tree.search();
+			break;
+		case 3:
+			if (tree.maximum(tree.root) == -1)
+				cout << "Tree is Empty.\n";
+			else
+				cout << tree.maximum(tree.root) << " is maximum value.\n";
+			break;
+		case 4:
+			cout << tree.minimum(tree.root) << " is minimum value.\n";
+			break;
+		case 5:
+			//tree.remove();
+			break;
+		case 6:
+			cout << "1. In-order\n2. Pre-Order\n3. Post-Order\n";
+			cout << "Enter the Operation: ";
+			cin >> choice;
+			switch (choice)
+			{
+			case 1:
+				tree.inOrder(tree.root);
+				cout << endl;
+				break;
+			case 2:
+				tree.preOrder(tree.root);
+				cout << endl;
+				break;
+			case 3:
+				tree.postOrder(tree.root);
+				cout << endl;
+				break;
+			default:
+				cout << "Invaid Operation.\n";
+				break;
+			}
+			break;
+		default:
+			cout << "Invalid operation.\n";
+			break;
+		}
+		cout << "Enter Y to Repeat: ";
+		cin >> rep;
+	} while (rep == 'y' || rep == 'Y');
 	
-	tree.insertion();
-	tree.insertion();
-	tree.insertion();
-	tree.insertion();
-	tree.insertion();
-	tree.insertion();
-
-
-	tree.search();
-	cout << endl;
-
-	if (tree.maximum(tree.root) == -1)
-		cout << "Tree is Empty.\n";
-	else
-		cout << tree.maximum(tree.root) << " is maximum value.\n";
-
-
-	cout << tree.minimum(tree.root) << " is minimum value.\n";
-	tree.inOrder(tree.root);
-	cout << endl;
-	tree.preOrder(tree.root);
-	cout << endl;
-	tree.postOrder(tree.root);
-	cout << endl;
+	return 0;
 }
