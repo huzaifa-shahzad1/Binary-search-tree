@@ -16,9 +16,11 @@ public:
 class binaryTree {
 public:
 	Node* root;
+	Node* leaf;
 
 	binaryTree() {
-		root = NULL;
+		root = leaf = NULL;
+
 	}
 
 	bool isEmpty() {
@@ -45,9 +47,42 @@ public:
 		return root;
 	}
 
+	void insertion() {
+		int value = 0;
+		cout << "Enter the Value: ";
+		cin >> value;
+		Node* current = root;
+
+		if (root == nullptr) {
+			root = new Node(value);
+			return;
+		}
+
+		Node* parent = nullptr;
+		while (current != nullptr) {
+			parent = current;
+
+			if (value < current->data) 
+				current = current->left;
+			else 
+				current = current->right;
+
+		}
+		
+
+		if (value > parent->data)
+			parent->right = new Node(value);
+		else
+			parent->left = new Node(value);
+	}
+
+
+
+
+
 	// display functions
 	void inOrder(Node* root) {
-		if (root==NULL) {
+		if (root == NULL) {
 			return;
 		}
 
@@ -78,13 +113,13 @@ public:
 
 int main() {
 	binaryTree tree;
-	tree.root = tree.insert(tree.root, 51);
-	tree.root = tree.insert(tree.root, 13);
-	tree.root = tree.insert(tree.root, 87);
-	tree.root = tree.insert(tree.root, 31);
-	tree.root = tree.insert(tree.root, 42);
-	tree.root = tree.insert(tree.root, 90);
-	tree.root = tree.insert(tree.root, 98);
+	
+	tree.insertion();
+	tree.insertion();
+	tree.insertion();
+	tree.insertion();
+	tree.insertion();
+	tree.insertion();
 
 	tree.inOrder(tree.root);
 	cout << endl;
