@@ -106,6 +106,44 @@ public:
 			cout << "The key [" << key << "] is the right node of the Node with key [" << parent->data << "].\n";
 		}
 	}
+
+	//function to find the maximum value from the binary search tree 
+	int maximum(Node* root)
+	{
+		if (root == NULL)
+			return -1;
+
+		int root_max = root->data;
+		int left_max = maximum(root->left);
+		int rres = maximum(root->right);
+		if (left_max > root_max)
+			root_max = left_max;
+		if (rres > root_max)
+			root_max = rres;
+		return root_max;
+	}
+
+	//function to find the minimum value from the binary search tree 
+	int minimum(Node* root)
+	{
+		if (root == NULL)
+		{
+			return INT_MAX;
+		}
+		int min = root->data;
+		int left = minimum(root->left);
+		int right = minimum(root->right);
+		if (left < min)
+		{
+			min = left;
+		}
+		if (right < min)
+		{
+			min = right;
+		}
+		return min;
+	}
+
 	// display functions
 	void inOrder(Node* root) {
 		if (root == NULL) {
@@ -150,6 +188,14 @@ int main() {
 
 	tree.search();
 	cout << endl;
+
+	if (tree.maximum(tree.root) == -1)
+		cout << "Tree is Empty.\n";
+	else
+		cout << tree.maximum(tree.root) << " is maximum value.\n";
+
+
+	cout << tree.minimum(tree.root) << " is minimum value.\n";
 	tree.inOrder(tree.root);
 	cout << endl;
 	tree.preOrder(tree.root);
