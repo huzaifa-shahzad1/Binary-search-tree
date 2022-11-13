@@ -16,15 +16,10 @@ public:
 class binaryTree {
 public:
 	Node* root;
-	Node* leaf;
 
 	binaryTree() {
-		root = leaf = NULL;
+		root = NULL;
 
-	}
-
-	bool isEmpty() {
-		return(root == NULL);
 	}
 
 	Node* createNode(int data) {
@@ -32,6 +27,7 @@ public:
 		return node;
 	}
 
+	// recursive method to insert in Binary-Search-Tree
 	Node* insert(Node* root, int data) {
 		if (root == NULL) {
 			root = createNode(data);
@@ -47,6 +43,7 @@ public:
 		return root;
 	}
 
+	// iterative method to insert in Binary-Search-Tree
 	void insertion() {
 		int value = 0;
 		cout << "Enter the Value: ";
@@ -76,10 +73,39 @@ public:
 			parent->left = new Node(value);
 	}
 
+	//function to search the value (key) in the BST
+	void search() {
+		int key = 0;
+		bool flag = false;
+		cout << "Enter the Key to Search: ";
+		cin >> key;
 
+		Node* current = root;
+		Node* parent = nullptr;
 
+		while (current != nullptr && current->data != key) {
+			parent = current;
+			if (key < current->data)
+				current = current->left;
+			else
+				current = current->right;
+		}
 
+		if (current == nullptr) {
+			cout << "Key [" << key << "] not found.\n";
+			return;
+		}
 
+		if (parent == nullptr) {
+			cout << "The key [" << key << "] node is the Root Node.\n";
+		}
+		else if (key < parent->data) {
+			cout << "The key [" << key << "] is the left node of the Node with key [" << parent->data << "].\n";
+		}
+		else if (key > parent->data) {
+			cout << "The key [" << key << "] is the right node of the Node with key [" << parent->data << "].\n";
+		}
+	}
 	// display functions
 	void inOrder(Node* root) {
 		if (root == NULL) {
@@ -121,6 +147,9 @@ int main() {
 	tree.insertion();
 	tree.insertion();
 
+
+	tree.search();
+	cout << endl;
 	tree.inOrder(tree.root);
 	cout << endl;
 	tree.preOrder(tree.root);
