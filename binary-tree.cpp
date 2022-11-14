@@ -143,6 +143,52 @@ public:
 		return min;
 	}
 
+	Node* findMaximumKey(Node* node) {
+		while (node->right != nullptr)
+			node = node->right;
+		return node;
+	}
+	// function to delete a certain node in the BST
+	void remove(Node* &root, int key) {
+		if (root == nullptr)
+			return;
+
+		if (key < root->data)
+			remove(root->left, key);
+		else if (key > root->data)
+			remove(root->right, key);
+
+		else {
+			//if the node has no children
+			if (root->left == nullptr && root->right == nullptr) {
+				delete root;
+				root = nullptr;
+			}
+
+			//if the node has two children
+			else if (root->left && root->right)
+			{
+				Node* predecessor = findMaximumKey(root->left);
+
+				root->data = predecessor->data;
+
+				remove(root->left, predecessor->data);
+			}
+
+			// if the node has only one children
+			else {
+				Node* child = (root->left) ? root->left : root->right;
+				Node* curr = root;
+
+				root = child;
+
+				delete curr;
+			}
+		}
+			
+
+	}
+
 	// display functions
 	void inOrder(Node* root) {
 		if (root == NULL) {
@@ -182,11 +228,12 @@ void menu() {
 	cout << "4. Minimum" << endl;
 	cout << "5. Delete" << endl;
 	cout << "6. Display" << endl;
+	cout << "7. Quit Program" << endl;
 }
 
 int main() {
 	binaryTree tree;
-	int choice = 0;
+	int choice = 0, key = 0;
 	char rep = ' ';
 	do
 	{
@@ -215,7 +262,9 @@ int main() {
 			cout << tree.minimum(tree.root) << " is minimum value.\n";
 			break;
 		case 5:
-			//tree.remove();
+			cout << "Enter the Value to Remove: ";
+			cin >> key;
+			tree.remove(tree.root, key);
 			break;
 		case 6:
 			cout << "1. In-order\n2. Pre-Order\n3. Post-Order\n";
@@ -240,6 +289,9 @@ int main() {
 				break;
 			}
 			break;
+		case 7:
+			cout << "*********PROGRAM   ENDED************\n";
+			return 0;
 		default:
 			cout << "Invalid operation.\n";
 			break;
