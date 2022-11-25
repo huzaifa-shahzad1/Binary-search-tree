@@ -190,24 +190,14 @@ public:
 	}
 
 	// display functions
-	/*void inOrder(Node* root) {
-		if (root == NULL) {
-			return;
-		}
-
-		inOrder(root->left);
-		cout << root->data << "  ";
-		inOrder(root->right);
-	}*/
-
 	void inOrder(Node* root) {
 		if (root == NULL) {
 			return;
 		}
 
-		inOrder(root->right);
-		cout << root->data << "  ";
 		inOrder(root->left);
+		cout << root->data << "  ";
+		inOrder(root->right);
 	}
 
 	void preOrder(Node* root) {
