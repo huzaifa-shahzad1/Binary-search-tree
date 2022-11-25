@@ -170,32 +170,7 @@ public:
 		inOrder(root->left);
 	}
 
-	void levelOrder(Node* root) {
-		if (root == NULL)
-			return;
-		queue<Node*> Queue;
-		Node* node;
-		Queue.push(root);
-		Queue.push(NULL);
-
-		while (Queue.size() > 1) {
-			node = Queue.front();
-			Queue.pop();
-			if (node == NULL) {
-				Queue.push(NULL);
-				cout << endl;
-			}
-			else {
-				if (node->left)
-					Queue.push(node->left);
-				if (node->right)
-					Queue.push(node->right);
-
-				cout << node->data << "  ";
-			}
-		}
-
-	}
+	
 };
 
 void menu() {
@@ -242,8 +217,6 @@ int main() {
 			break;
 		case 5:
 			tree.inOrder(tree.root);
-			cout << endl;
-			tree.levelOrder(tree.root);
 			cout << endl;
 			break;
 		case 7:
